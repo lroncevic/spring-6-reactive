@@ -1,5 +1,6 @@
 package com.lukaroncevic.spring6reactive.controllers;
 
+import com.lukaroncevic.spring6reactive.domain.Beer;
 import com.lukaroncevic.spring6reactive.model.BeerDTO;
 
 import com.lukaroncevic.spring6reactive.repositories.BeerRepositoryTest;
@@ -38,6 +39,17 @@ class BeerControllerTest {
                 .body(Mono.just(BeerRepositoryTest.getTestBeer()), BeerDTO.class)
                 .exchange()
                 .expectStatus().isNoContent();
+    }
+
+    @Test
+    void createBeerBadData() {
+        Beer testBeer = BeerRepositoryTest.getTestBeer();
+        testBeer.setBeerName("");
+        webTestClient.post().uri(BeerController.BEER_PATH)
+                .body(Mono.just(testBeer), BeerDTO.class)
+                .header("Content-Type", "application/json")
+                .exchange()
+                .expectStatus().isBadRequest();
     }
 
     @Test
