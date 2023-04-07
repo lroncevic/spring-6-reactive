@@ -1,6 +1,7 @@
 package com.lukaroncevic.spring6reactive.services;
 
-import com.lukaroncevic.spring6reactive.mappers.BeerMaper;
+import com.lukaroncevic.spring6reactive.mappers.BeerMapper;
+import com.lukaroncevic.spring6reactive.mappers.BeerMapper;
 import com.lukaroncevic.spring6reactive.model.BeerDTO;
 import com.lukaroncevic.spring6reactive.repositories.BeerRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,24 +15,24 @@ import reactor.core.publisher.Mono;
 public class BeerServiceImpl implements BeerService {
 
     private final BeerRepository beerRepository;
-    private final BeerMaper beerMaper;
+    private final BeerMapper beerMapper;
 
     @Override
     public Flux<BeerDTO> listBeers() {
         return beerRepository.findAll()
-                .map(beerMaper::beerToBeerDto);
+                .map(beerMapper::beerToBeerDto);
     }
 
     @Override
     public Mono<BeerDTO> getBeerById(Integer beerId) {
         return beerRepository.findById(beerId)
-                .map(beerMaper::beerToBeerDto);
+                .map(beerMapper::beerToBeerDto);
     }
 
     @Override
     public Mono<BeerDTO> saveNewBeer(BeerDTO beerDTO) {
-        return beerRepository.save(beerMaper.beerDtoToBeer(beerDTO))
-                .map(beerMaper::beerToBeerDto);
+        return beerRepository.save(beerMapper.beerDtoToBeer(beerDTO))
+                .map(beerMapper::beerToBeerDto);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class BeerServiceImpl implements BeerService {
                     foundBeer.setQuantityOnHand(beerDTO.getQuantityOnHand());
                     return foundBeer;
                 }).flatMap(beerRepository::save)
-                .map(beerMaper::beerToBeerDto);
+                .map(beerMapper::beerToBeerDto);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class BeerServiceImpl implements BeerService {
                     }
                     return existingBeer;
                 }).flatMap(beerRepository::save)
-                .map(beerMaper::beerToBeerDto);
+                .map(beerMapper::beerToBeerDto);
     }
 
     @Override

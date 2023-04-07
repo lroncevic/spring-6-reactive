@@ -5,7 +5,7 @@ import com.lukaroncevic.spring6reactive.model.BeerDTO;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface BeerMaper {
+public interface BeerMapper {
 
     Beer beerDtoToBeer(BeerDTO dto);
 
