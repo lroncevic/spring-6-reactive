@@ -22,6 +22,14 @@ class BeerControllerTest {
     WebTestClient webTestClient;
 
     @Test
+    void updateBeer() {
+        webTestClient.put().uri(BeerController.BEER_PATH_ID, 1)
+                .body(Mono.just(BeerRepositoryTest.getTestBeer()), BeerDTO.class)
+                .exchange()
+                .expectStatus().isNoContent();
+    }
+
+    @Test
     void testCreateBeer() {
         webTestClient.post().uri(BeerController.BEER_PATH)
                 .body(Mono.just(BeerRepositoryTest.getTestBeer()), BeerDTO.class)
