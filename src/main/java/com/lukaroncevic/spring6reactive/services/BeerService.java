@@ -1,6 +1,7 @@
 package com.lukaroncevic.spring6reactive.services;
 
 import com.lukaroncevic.spring6reactive.model.BeerDTO;
+import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -11,4 +12,6 @@ public interface BeerService {
     Mono<BeerDTO> getBeerById(Integer beerId);
 
     Mono<BeerDTO> saveNewBeer(BeerDTO beerDTO);
+
+    Mono<BeerDTO> updateBear(Integer beerId, BeerDTO beerDTO);
 }
