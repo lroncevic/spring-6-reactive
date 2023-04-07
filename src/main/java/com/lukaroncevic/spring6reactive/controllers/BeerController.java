@@ -19,7 +19,7 @@ public class BeerController {
     private final BeerService beerService;
 
     @DeleteMapping(BEER_PATH_ID)
-    Mono<ResponseEntity<Mono>> deleteBeer(@PathVariable("beerId")Integer beerId){
+    Mono<ResponseEntity<Void>> deleteBeer(@PathVariable("beerId")Integer beerId){
         return beerService.deleteBeerById(beerId)
                 .map(response -> ResponseEntity.noContent().build());
     }
@@ -41,11 +41,13 @@ public class BeerController {
     }
 
     @PostMapping(BEER_PATH)
-    Mono<ResponseEntity<Void>> createNewBeer(@Validated BeerDTO beerDTO){
+    Mono<ResponseEntity<Void>> createNewBeer(@Validated @RequestBody BeerDTO beerDTO){
         return beerService.saveNewBeer(beerDTO)
                 .map(savedDto -> ResponseEntity.created(UriComponentsBuilder
-                        .fromHttpUrl("http://localhost:8080/" + BEER_PATH + "/" + savedDto.getId())
-                        .build().toUri()).build());
+                                .fromHttpUrl("http://localhost:8080/" + BEER_PATH
+                                        + "/" + savedDto.getId())
+                                .build().toUri())
+                        .build());
     }
 
     @GetMapping(BEER_PATH_ID)

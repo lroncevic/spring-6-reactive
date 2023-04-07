@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataR2dbcTest
 @Import(DataBaseConfig.class)
-class BeerRepositoryTest {
+public class BeerRepositoryTest {
 
     @Autowired
     BeerRepository beerRepository;
@@ -35,7 +35,7 @@ class BeerRepositoryTest {
                 });
     }
 
-    Beer getTestBeer(){
+    public static Beer getTestBeer(){
        return Beer.builder()
                .beerName("Osječko")
                .beerStyle("IPA")

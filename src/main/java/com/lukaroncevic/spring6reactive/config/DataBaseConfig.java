@@ -1,6 +1,8 @@
 package com.lukaroncevic.spring6reactive.config;
 
+import com.lukaroncevic.spring6reactive.repositories.BeerRepository;
 import io.r2dbc.spi.ConnectionFactory;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
