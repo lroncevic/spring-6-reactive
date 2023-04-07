@@ -20,7 +20,7 @@ public class BeerController {
     public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
     private final BeerService beerService;
 
-    @PostMapping
+    @PostMapping(BEER_PATH)
     Mono<ResponseEntity<Void>> createNewBeer(BeerDTO beerDTO){
         return beerService.saveNewBeer(beerDTO)
                 .map(savedDto -> ResponseEntity.created(UriComponentsBuilder
