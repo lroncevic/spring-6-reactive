@@ -33,6 +33,17 @@ class BeerControllerTest {
     }
 
     @Test
+    @Order(4)
+    void updateBeerBadData() {
+        Beer testBeer = BeerRepositoryTest.getTestBeer();
+        testBeer.setBeerStyle("");
+        webTestClient.put().uri(BeerController.BEER_PATH_ID, 1)
+                .body(Mono.just(testBeer), BeerDTO.class)
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+    @Test
     @Order(3)
     void updateBeer() {
         webTestClient.put().uri(BeerController.BEER_PATH_ID, 1)
