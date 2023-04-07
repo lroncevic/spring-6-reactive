@@ -17,13 +17,22 @@ public class BeerController {
     public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
     private final BeerService beerService;
 
+    @PatchMapping(BEER_PATH_ID)
+    Mono<ResponseEntity<Void>> patchExistingBeer(@PathVariable("beerId")Integer beerId,
+                                                 @RequestBody BeerDTO beerDTO){
+
+        return beerService.patchBeer(beerId, beerDTO)
+                .map(savedDto -> ResponseEntity.ok().build());
+    }
+
     @PutMapping(BEER_PATH_ID)
-    ResponseEntity<Void> updatedExistingBear(@PathVariable("beerId") Integer beerId,
+    Mono<ResponseEntity<Void>> updatedExistingBeer(@PathVariable("beerId") Integer beerId,
                                                    @RequestBody BeerDTO beerDTO){
 
-        beerService.updateBear(beerId, beerDTO).subscribe();
+        beerService.updateBeer(beerId, beerDTO).subscribe();
 
-        return ResponseEntity.ok().build();
+        return beerService.updateBeer(beerId, beerDTO)
+                .map(savedDto -> ResponseEntity.ok().build());
     }
 
     @PostMapping(BEER_PATH)
